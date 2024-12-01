@@ -1,17 +1,17 @@
-const dotenv = require('dotenv'); // Correct spelling
+const dotenv = require('dotenv'); 
 dotenv.config();
 
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const connectToDb = require('./db/db'); // Ensure the path to your DB connection file is correct
+const connectToDb = require('./db/db');
 
 // Middleware setup
 app.use(cors());
-app.use(express.json()); // Middleware for parsing JSON payloads
-app.use(express.urlencoded({ extended: true })); // Middleware for parsing URL-encoded data
-app.use(cookieParser()); // Middleware for parsing cookies
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true })); 
+app.use(cookieParser()); 
 
 // Database connection
 connectToDb();
@@ -24,5 +24,9 @@ app.get('/', (req, res) => {
 // User routes
 const userRoutes = require('./routes/user.routes');
 app.use('/users', userRoutes);
+
+//Captain routes
+const captainRoutes = require('./routes/captain.routes')
+app.use('/captain',captainRoutes)
 
 module.exports = app;

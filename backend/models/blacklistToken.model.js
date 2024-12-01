@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const blacklistTokenSchema = new mongoose.Schema({
     token: {
@@ -13,4 +13,7 @@ const blacklistTokenSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('BlacklistToken', blacklistTokenSchema);
+// Use mongoose.models to check if the model already exists
+const BlacklistToken = mongoose.models.BlacklistToken || mongoose.model('BlacklistToken', blacklistTokenSchema);
+
+module.exports = BlacklistToken;

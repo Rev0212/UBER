@@ -1,9 +1,69 @@
 
-# BACKEND API Endpoints Documentation
+# USER MODULE
+
+This module handles the operations related to the `User` entity, including registration, login, authentication, and management of captains and their vehicles.
+
+## Features
+
+1. **User Registration**
+   - Validates input data.
+   - Hashes passwords before saving to the database.
+   - Stores captain details along with associated vehicle information.
+
+2. **User Login**
+   - Authenticates captains using email and password.
+   - Issues a JWT token for authenticated sessions.
+
+3. **Profile Management**
+   - Retrieves the captain's profile.
+
+4. **Logout**
+   - Clears the token and blacklists it.
+
+5. **Authentication Middleware**
+   - Validates the authenticity of the JWT token.
+   - Ensures requests are made by authorized captains.
+
+
+### User Schema
+
+The `User` schema defines the structure and constraints for user documents in the MongoDB database.
+
+```javascript
+
+    fullname: {
+        firstname: {
+            type: String,
+            required: true,
+            minlength: [3, 'Firstname must be at least 3 characters long']
+        },
+        lastname: {
+            type: String,
+            minlength: [3, 'Lastname must be at least 3 characters long']
+        },
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        minlength: [5, 'Email must be at least 5 characters long']
+    },
+    password: {
+        type: String,
+        required: true,
+        select: false
+    },
+    socketID: {
+        type: String
+    }
+
+```
+
+---
 
 ## User API Endpoints
 
-## Overview
+### Overview
 
 This API provides functionality for user registration and authentication. It includes the following endpoints:
 
@@ -11,15 +71,6 @@ This API provides functionality for user registration and authentication. It inc
 - **POST /user/login**: Allows user to log in
 - **GET /user/profile**: Retrieves user profile
 - **GET /user/logout**: Logs out the user
-
-### Technologies Used
-
-- **Node.js**
-- **Express.js**
-- **Mongoose** (MongoDB ODM)
-- **bcrypt** (for password hashing)
-- **jsonwebtoken** (for token generation)
-- **express-validator** (for request validation)
 
 ---
 
@@ -116,7 +167,7 @@ Registers a new user.
       "location": "body"
     },
     {
-      "msg": "First name must be at least 3 char long",
+      "msg": "First name must be at least 3 characters long",
       "param": "fullname.firstname",
       "location": "body"
     }
@@ -189,6 +240,7 @@ Retrieves the authenticated user's profile.
 **Method:** GET
 
 **Headers:**
+
 - Authorization: Bearer [JWT Token]
 
 #### **Response**
@@ -217,6 +269,7 @@ Logs out the authenticated user.
 **Method:** GET
 
 **Headers:**
+
 - Authorization: Bearer [JWT Token]
 
 #### **Response**
@@ -296,10 +349,12 @@ Errors are returned as JSON objects with a status code and message:
 }
 ```
 
-**Server Error (500):**
 
-```json
-{
-  "error": "Internal Server Error"
-}
-```
+### Technologies Used
+
+- **Node.js**
+- **Express.js**
+- **Mongoose** (MongoDB ODM)
+- **bcrypt** (for password hashing)
+- **jsonwebtoken** (for token generation)
+- **express-validator** (for request validation)
