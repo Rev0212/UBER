@@ -91,6 +91,19 @@ const Home = () => {
       </div>
       <div className='flex flex-col justify-end h-screen absolute top-0 w-full'>
         <div className='h-[30%] p-5 bg-white relative'>
+        <h5
+          ref={pannelRef}
+          className={`absolute right-6 top-6 text-2xl ${
+            pannelRef.current ? 'opacity-1' : 'opacity-0'
+        }`}
+          onClick={() => {
+            setIsPannelOpen(false);
+          }}
+          
+        >
+            <i className="ri-arrow-down-wide-line"></i>
+        </h5>
+
           <h4 className='text-2xl font-semibold'>Find a Trip</h4>
           <form onSubmit={submitHandler}>
             <div className='line absolute h-16 w-1 top-[30%] left-8 bg-gray-800'></div>
