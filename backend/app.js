@@ -29,4 +29,9 @@ app.use('/users', userRoutes);
 const captainRoutes = require('./routes/captain.routes')
 app.use('/captain',captainRoutes)
 
+//maps Routes
+const mapsRoutes = require('./routes/maps.routes')
+app.use('/maps',mapsRoutes)
+
+
 module.exports = app;
